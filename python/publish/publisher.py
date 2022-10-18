@@ -330,7 +330,7 @@ class Publisher:
             )
 
             if check_run is None:
-                d = vars(cases)
+                d = jsons.loads(jsons.dumps(cases))
                 out = {}
                 for key, value in d.items():
                     if 'success' in d[key]:
