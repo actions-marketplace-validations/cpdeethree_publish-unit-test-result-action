@@ -319,6 +319,8 @@ class Publisher:
         summary_with_digest = get_long_summary_with_digest_md(stats_with_delta, stats)
         split_annotations = [annotation.to_dict() for annotation in all_annotations]
         split_annotations = [split_annotations[x:x+50] for x in range(0, len(split_annotations), 50)] or [[]]
+
+
         for annotations in split_annotations:
             output = dict(
                 title=title,
@@ -327,6 +329,7 @@ class Publisher:
             )
 
             if check_run is None:
+                output['text'] = json.dump(cases.to_dict(self._settings.json_thousands_separator), w, ensure_ascii=False, separators=(',', ':'))
                 logger.debug(f'creating check with {len(annotations)} annotations')
                 check_run = self._repo.create_check_run(name=self._settings.check_name,
                                                         head_sha=self._settings.commit,
@@ -339,6 +342,7 @@ class Publisher:
                 check_run.edit(output=output)
                 logger.debug(f'updated check')
 
+        
         # create full json
         data = PublishData(
             title=title,
