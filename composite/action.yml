@@ -137,7 +137,7 @@ runs:
 
     - name: Install Python dependencies
       run: |
-        sudo apt-get install python3-pip
+        sudo apt-get install python3-pip -y
         echo '##[group]Install Python dependencies'
         python3 -m pip install -r $GITHUB_ACTION_PATH/../python/requirements.txt
         echo '##[endgroup]'
