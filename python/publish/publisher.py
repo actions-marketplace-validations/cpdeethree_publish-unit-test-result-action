@@ -330,7 +330,19 @@ class Publisher:
             )
 
             if check_run is None:
-                output['text'] = jsons.dumps(cases, ensure_ascii=False, separators=(',', ':'))
+                d = vars(cases)
+                out = {}
+                for key, value in d.items():
+                    if 'success' in d[key]:
+                        for i in range(len(d[key]['success'])):
+                            out['success'][d[key]['success'][i]['test_name']]=d[key]['success'][i]['time']
+                    if 'failure' in d[key]:
+                        for i in range(len(d[key]['failure'])):
+                            out['failure'][d[key]['failure'][i]['test_name']]=d[key]['failure'][i]['time']
+                    if 'skipped' in d[key]:
+                        for i in range(len(d[key]['skipped'])):
+                            out['skipped'][d[key]['skipped'][i]['test_name']]=d[key]['skipped'][i]['time']
+                output['text'] = jsons.dumps(out, ensure_ascii=False, separators=(',', ':'))
                 logger.info(output['text'])
                 logger.debug(f'creating check with {len(annotations)} annotations')
                 check_run = self._repo.create_check_run(name=self._settings.check_name,
