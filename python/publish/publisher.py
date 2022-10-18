@@ -330,7 +330,7 @@ class Publisher:
             )
 
             if check_run is None:
-                output['text'] = jsons.dumps(cases, w, ensure_ascii=False, separators=(',', ':'))
+                output['text'] = jsons.dumps(cases, ensure_ascii=False, separators=(',', ':'))
                 logger.debug(f'creating check with {len(annotations)} annotations')
                 check_run = self._repo.create_check_run(name=self._settings.check_name,
                                                         head_sha=self._settings.commit,
