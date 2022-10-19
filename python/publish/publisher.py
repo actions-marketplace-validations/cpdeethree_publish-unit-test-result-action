@@ -331,7 +331,7 @@ class Publisher:
 
             if check_run is None:
                 d = json.loads(jsons.dumps(cases))
-                out = {}
+                out = {'success': {}, 'failure': {}, 'skipped': {}}
                 for key, value in d.items():
                     if 'success' in d[key]:
                         for i in range(len(d[key]['success'])):
