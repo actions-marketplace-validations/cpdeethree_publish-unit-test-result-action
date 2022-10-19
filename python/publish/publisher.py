@@ -62,7 +62,7 @@ class Settings:
     check_run_annotation: List[str]
     seconds_between_github_reads: float
     seconds_between_github_writes: float
-
+ 
 
 @dataclasses.dataclass(frozen=True)
 class PublishData:
@@ -330,7 +330,7 @@ class Publisher:
             )
 
             if check_run is None:
-                d = jsons.loads(jsons.dumps(cases))
+                d = json.loads(jsons.dumps(cases))
                 out = {}
                 for key, value in d.items():
                     if 'success' in d[key]:
