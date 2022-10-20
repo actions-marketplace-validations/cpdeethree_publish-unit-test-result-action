@@ -63,7 +63,6 @@ class Settings:
     seconds_between_github_reads: float
     seconds_between_github_writes: float
  
-
 @dataclasses.dataclass(frozen=True)
 class PublishData:
     title: str
@@ -320,8 +319,6 @@ class Publisher:
         summary_with_digest = get_long_summary_with_digest_md(stats_with_delta, stats)
         split_annotations = [annotation.to_dict() for annotation in all_annotations]
         split_annotations = [split_annotations[x:x+50] for x in range(0, len(split_annotations), 50)] or [[]]
-
-
         for annotations in split_annotations:
             output = dict(
                 title=title,
@@ -355,8 +352,7 @@ class Publisher:
                 logger.debug(f'updating check with {len(annotations)} more annotations')
                 check_run.edit(output=output)
                 logger.debug(f'updated check')
-
-        
+     
         # create full json
         data = PublishData(
             title=title,
